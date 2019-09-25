@@ -1,0 +1,57 @@
+
+<form #trvForm="ngForm"  (ngSubmit)="submitHandler()">
+  <!-- Grid row -->
+  <div class="form-row align-items-center">
+    <!-- Grid column -->
+    <div class="col-auto">
+      <!-- Default input -->
+      <!--label  for="Country">Please Enter Country for Weather</label-->
+      <input mdbInput type="text" name="country" class="form-control mb-2" id="Country" [(ngModel)]="country" >
+    </div>
+    <!-- Grid column -->
+    
+    <!-- Grid column -->
+    <div class="col-auto">
+      <button type="submit" mdbBtn color="primary" class="mt-0">Submit</button>
+    </div>
+  </div>
+  <!-- Grid row -->
+</form>
+
+<table class="box table table-sm table-dark">
+    <tr>
+      <td scope="col">Sunday</td>
+      <td scope="row">{{sunday}}&deg;</td>
+    </tr>
+</table>
+
+<table class="box table table-sm table-dark">
+    <tr>
+        <td scope="col">Monday</td>
+      <td scope="row">{{monday}}&deg;</td>
+    </tr>
+</table>
+
+<table class="box table table-sm table-dark">
+    <tr>
+        <td scope="col">Tuesday</td>
+      <td scope="row">{{tuesday}}&deg;</td>
+    </tr> 
+</table>
+
+<table class="box table table-sm table-dark">
+  <tr>
+      <td scope="col">Wednesday</td>
+    <td scope="row">{{wednesday}}&deg;</td>
+  </tr> 
+</table>
+
+<table class="box table table-sm table-dark">
+  <tr>
+      <td scope="col">Thursday</td>
+    <td scope="row">{{thursday}}&deg;</td>
+  </tr> 
+</table>
+
+
+
