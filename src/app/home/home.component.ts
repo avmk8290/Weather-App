@@ -188,22 +188,25 @@ export class HomeComponent implements OnInit {
   
 
   submitHandler(){
-    this.ChosenCity= this.WeatherService.GetCitys(this.country);
-    console.log("ChosenCity"+ this.ChosenCity);
-    this.CitysObject = this.ChosenCity as object [];
-    console.log("dzdvzfdgfsdfd"+this.CitysObject);
-    for(let i=0; i< this.CitysObject.length; i++){
-      if(this.CitysObject[i].AdministrativeArea.LocalizedName === this.country)
-      {
-        this.MyCountry = this.CitysObject[i].Key;
-        break;
-      }
-      }
+    this.WeatherService.GetCitys(this.country).subscribe(city =>{
+      console.log(city);
+      this.ChosenCity = city;
+    });
+    // console.log("ChosenCity"+ this.ChosenCity);
+    // this.CitysObject = this.ChosenCity as object [];
+    // console.log("dzdvzfdgfsdfd"+this.CitysObject);
+    // for(let i=0; i< this.CitysObject.length; i++){
+    //   if(this.CitysObject[i].AdministrativeArea.LocalizedName === this.country)
+    //   {
+    //     this.MyCountry = this.CitysObject[i].Key;
+    //     break;
+    //   }
+    //   }
 
-      this.CityWResoult=this.WeatherService.GetWeather(this.MyCountry)
+    //   this.CityWResoult=this.WeatherService.GetWeather(this.MyCountry)
      
-      this.town = this.CityWResoult as object [];
-        this.TempetureByDays();
+    //   this.town = this.CityWResoult as object [];
+    //     this.TempetureByDays();
     }
 
 

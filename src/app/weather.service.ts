@@ -195,9 +195,9 @@ this.secondUrl ='http://dataservice.accuweather.com/locations/v1/cities/autocomp
   Citys : any;
 Weather:any;
   GetCitys (city: string): Observable<any[]>{
-    
-this.Citys=this.Http.get<any[]>(this.secondUrl +'apikey='+this.ApiKey+'&q='+city);
-console.log("dhfgdhgfhdgfdhhgfkghlkhj"+this.Citys);
+    debugger
+    let fullUrl = this.secondUrl +'apikey='+this.ApiKey+'&q='+city;
+    this.Citys=this.Http.get<any[]>(fullUrl);
     return this.Citys;
   }
 
