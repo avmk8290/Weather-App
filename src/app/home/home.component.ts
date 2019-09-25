@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { WeatherService } from '../Weather.Service';
+import { AccWeatherService } from '../acc-weather.service';
 import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 
 const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
@@ -18,19 +19,21 @@ const states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'C
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  sunday:any;
-  monday:any;
-  tuesday:any;
-  wednesday:any;
-  thursday:any;
+
+  subscription: Subscription = new Subscription();
+  sunday: any;
+  monday: any;
+  tuesday: any;
+  wednesday: any;
+  thursday: any;
 
   country: string = "Israel";
-  ChosenCity:any;
-  CitysObject : any;
-  MyCountry : any;
-  CityWResoult : any;
-  town :any;
-  Citys :any =[
+  ChosenCity: any;
+  CitysObject: any;
+  MyCountry: any;
+  CityWResoult: any;
+  town: any;
+  Citys: any = [
     {
       "Version": 1,
       "Key": "328328",
@@ -182,16 +185,22 @@ export class HomeComponent implements OnInit {
       }
     }
   ];
-  constructor(private WeatherService:WeatherService) { 
-    //this.submitHandler();
+  constructor(private WeatherService: AccWeatherService) {
   }
-  
 
-  submitHandler(){
-    this.WeatherService.GetCitys(this.country).subscribe(city =>{
+  ngOnInit() {
+  }
+
+
+  submitHandler() {
+    let sub = this.WeatherService.getCities(this.country).subscribe(city => {
       console.log(city);
       this.ChosenCity = city;
+      console.log(this.ChosenCity);
+
     });
+    // add to array subscription
+    this.subscription.add(sub);
     // console.log("ChosenCity"+ this.ChosenCity);
     // this.CitysObject = this.ChosenCity as object [];
     // console.log("dzdvzfdgfsdfd"+this.CitysObject);
@@ -204,21 +213,25 @@ export class HomeComponent implements OnInit {
     //   }
 
     //   this.CityWResoult=this.WeatherService.GetWeather(this.MyCountry)
-     
+
     //   this.town = this.CityWResoult as object [];
     //     this.TempetureByDays();
-    }
+  }
 
 
-TempetureByDays(){
-  this.sunday = this.town["DailyForecasts"]["0"].Temperature.Maximum.Value;
-  this.monday = this.town["DailyForecasts"]["1"].Temperature.Maximum.Value;
-  this.tuesday = this.town["DailyForecasts"]["2"].Temperature.Maximum.Value;
-  this.wednesday = this.town["DailyForecasts"]["3"].Temperature.Maximum.Value;
-  this.thursday = this.town["DailyForecasts"]["4"].Temperature.Maximum.Value;
-}
-  ngOnInit() {
-}
+  TempetureByDays() {
+    this.sunday = this.town["DailyForecasts"]["0"].Temperature.Maximum.Value;
+    this.monday = this.town["DailyForecasts"]["1"].Temperature.Maximum.Value;
+    this.tuesday = this.town["DailyForecasts"]["2"].Temperature.Maximum.Value;
+    this.wednesday = this.town["DailyForecasts"]["3"].Temperature.Maximum.Value;
+    this.thursday = this.town["DailyForecasts"]["4"].Temperature.Maximum.Value;
+  }
+
+  ngOnDestroy(): void {
+    //ALLWAYS UNSUBSCRIBE
+    this.subscription.unsubscribe();
+  }
+
 
 
 }

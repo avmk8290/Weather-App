@@ -4,5 +4,7 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  baseUrl : 'http://dataservice.accuweather.com/forecasts/v1/',
+  apiKey : 'c5ri44zCIThpVyOT5etSCoeH1s6r6gEQ',
 };
