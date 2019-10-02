@@ -5,7 +5,6 @@ import { Injectable } from '@angular/core';
 
 
 /**
- * provide pipeline for http requests using HttpClient
  * @return HttpParams
  */
 @Injectable()
@@ -16,7 +15,7 @@ export class HttpService {
     }
     /**
      * @param url
-     * @param data - Optional - type of Object
+     * @param data 
      * @return an `Observable` of the body as an `Object`.
      */
    get<T = any>(url: string, data?: Object , includeAPIkey :boolean = true) :Observable<T>{
@@ -24,17 +23,27 @@ export class HttpService {
         if (data) {
             params = this.buildParamsQuery(data) 
         }
-
-        return this.http.get<T>(`${environment.baseUrl}${url}` , {params});
+if(url ='daily/5day/cities/autocomplete'){
+  return this.http.get<T>(`${environment.locaionsUrl}${url}` , {params});
+}
+else if (url='daily/5day'){
+  return this.http.get<T>(`${environment.forecasts}${url}` , {params});
+}
+        
    }
 
    post<T = any>(url: string, body: string | object):Observable<T>{
-     return this.http.post<T>(`${environment.baseUrl}${url}` ,body);
+     if( url ='daily/5day/cities/autocomplete')
+     {
+      return this.http.post<T>(`${environment.locaionsUrl}${url}` ,body)
+     }
+     if(url='daily/5day'){
+      return this.http.post<T>(`${environment.forecasts}${url}` ,body);
+     }
    }
 
 
 /**
- * Build params query for url requests
  * @param Object
  * @return HttpParams
  */
